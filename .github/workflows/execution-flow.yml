@@ -36,7 +36,8 @@ jobs:
         id: run-tests
         run: npm run test
       - name: Upload test report
-        if: steps.run-tests.outcome == 'faulure'
+        # failure() - job 내에서 하나라도 실패, run-tests.outcome == 'faulure' - 이전 step이 실패했을때만 실행
+        if: failure() && run-tests.outcome == 'faulure' # failure() -
         uses: actions/upload-artifact@v4
         with:
           name: test-report
